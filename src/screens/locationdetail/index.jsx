@@ -8,7 +8,8 @@ import { styles } from "./styles";
 const LocationDetail = ({ route }) => {
   const { locationId } = route.params;
   const location = useSelector((state) => state.location.locations.find((location) => location.id === locationId));
-
+  console.log(location)
+  const parseCoords = JSON.parse(JSON.stringify(location?.coords));
   return (
     <ScrollView style={styles.container}>
         <View style={styles.location}>
@@ -18,7 +19,7 @@ const LocationDetail = ({ route }) => {
             </View>
         </View> 
         <View style={styles.location}>
-        <MapPreview style={styles.map} location={{ lat: location.coords.lat, lng: location.coords.lng }}>
+        <MapPreview style={styles.map} location={{ lat: parseCoords.lat, lng: parseCoords.lng }}>
             <Text>Ubicacion no disponible</Text>
         </MapPreview>
         </View>

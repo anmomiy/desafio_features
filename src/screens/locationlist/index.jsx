@@ -1,10 +1,12 @@
 import {  FlatList } from "react-native";
-import { useSelector } from "react-redux";
-
+import { useEffect } from "react";
+import { useSelector, useDispatch  } from "react-redux";
+import { loadLocations } from "../../store/location.slice";
 import { LocationItem } from "../../components";
 import { styles } from "./styles";
 
 const LocationList = ({ navigation }) => {
+  const dispatch = useDispatch();
   const Locations = useSelector((state) => state.location.locations);
 
   const renderItem = ({ item }) => (
@@ -14,6 +16,9 @@ const LocationList = ({ navigation }) => {
     />
   );
   const keyExtractor = (item) => item.id;
+  useEffect(() => {
+    dispatch(loadLocations());
+  }, [dispatch]);
   return (
     <FlatList
       data={Locations}
